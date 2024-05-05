@@ -21,12 +21,13 @@ class Anonymizer:
         # TODO can have "levels" of anonymization. For example, a table name as 'A' or common words like "data", "info"
         #  etc probably don't need to be anonymized
 
-        # TODO even better here would be random words from the dictionary, without replacement
 
         if self.token_mode == "random":
             letters = string.ascii_lowercase
             return ''.join(random.choice(letters) for i in range(length))
         elif self.token_mode == "dictionary":
+            # TODO even better here would be random words from the dictionary, without replacement
+            # WRITE CODE HERE
             raise NotImplementedError
         else:
             raise Exception(f"unexpected token mode: {self.token_mode}")
