@@ -6,9 +6,6 @@ import string
 from reserved_words import sql_reserved_words_upper
 from tests.test_queries import longquery
 
-
-# TODO nltk required to .download('words') the first time, so might make sense to keep a local, gitted list of all words
-
 # TODO how about anonymization of dates? right now we are treating-them as regular token, but that might confuse the LLM
 #  a better way is to look at the list of tokens and convert dates to dates from other years
 
