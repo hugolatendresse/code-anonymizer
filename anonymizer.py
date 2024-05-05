@@ -6,6 +6,14 @@ import string
 from reserved_words import sql_reserved_words_upper
 from tests.test_queries import longquery
 
+# TODO also do a pycharm pluggin
+
+# TODO interface in VScode: right-click, but also key-binding
+
+
+# TODO create a great readme showing how to use it, with vs code extension, command line, or else
+
+
 # TODO how about anonymization of dates? right now we are treating-them as regular token, but that might confuse the LLM
 #  a better way is to look at the list of tokens and convert dates to dates from other years
 
