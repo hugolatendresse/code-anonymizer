@@ -39,28 +39,26 @@ ORDER BY
 LIMIT 10;
 """
 
+
+def replace_in_string(token, replacement, string):
+    token = r"\b" + token + r"\b"
+    modified_string = re.sub(token, replacement, string)
+    return modified_string
+
+
 def convert_SQL(sql_query):
     d = {}
-
-    # TODO ask chatgpt if i'm missing anything
-    dividers = [r'\s+', '\.', ',', ';', '\{', '\}', '\[', '\]', r'\(', r'\)', '\+', '-', '\*', '/', '=', '!', '<', '>']
-    divider_all = r"(" + "|".join(dividers) + ")"
 
     sql_reserved_words_upper = {word.upper() for word in sql_reserved_words}
 
     def generate_random_string(length=8):
         # TODO the list should be constantly refreshed in the background the avoid the cost of processing
+        # TODO the random strings should have null intersection with: sql reserved words, and ideally original tokens
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(length))
 
-    def replace_in_string(token, replacement, string):
-        token = r"\b" + token + r"\b"
-        modified_string = re.sub(token, replacement, string)
-        return modified_string
-
     def replace_non_reserved_words(query):
         # TODO need to consider that sql is NOT case sensitive, and therefore col1 and COL1 are the same thing!!
-        tokens = re.split(divider_all, query)
         tokens = re.findall(r'\b\w+\b', query)
         # TODO compare the performance of using tokens1 and parsing the list vs tokens2
         # tokens1 = re.split(r"(\s+|,|;|\(|\))", query)
@@ -70,12 +68,28 @@ def convert_SQL(sql_query):
                 # TODO there MUST be a more efficient way where we go through only once instead of <number of tokens>
                 #  times, especially since we can hash the tokens and find they quickly. The only challenge is that as
                 #  we go throught the query, we have to know where tokens start and end
+                # TODO can always implement a string pattern algorithm directly in C/C++
                 query = replace_in_string(token=token, replacement=d[token], string=query)
         return query
 
     new_query = replace_non_reserved_words(sql_query)
-    return new_query
+    return new_query, d
+
+
+
+def unanonymize(query, d):
+    for original_token, sanitized_token in d.items():
+        query = replace_in_string(token=sanitized_token, replacement=original_token, string=query)
+    return query
 
 
 # print(convert_SQL(longquery))  # TODO
-print(convert_SQL("SELECT EmployeeID, LastName FROM Employees WHERE Department = 'Sales';"))
+
+def test_quick(query):
+    print(query)
+    res1, d = convert_SQL(query)
+    print(res1)
+    unres1 = unanonymize(res1, d=d)
+    print(unres1)
+
+test_quick("SELECT EmployeeID, LastName FROM Employees WHERE Department = 'Sales';")
