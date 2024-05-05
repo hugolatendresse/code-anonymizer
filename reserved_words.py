@@ -27,3 +27,4 @@ sql_reserved_words = {
     "WRITETEXT", "XOR"
 }
 
+sql_reserved_words_upper = {word.upper() for word in sql_reserved_words}
