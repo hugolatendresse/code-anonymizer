@@ -1,29 +1,25 @@
+import json
+import random
 import re
 import string
-import random
 
 from reserved_words import sql_reserved_words_upper
 from tests.test_queries import longquery
 
 
-import re
-import random
-import nltk
-from nltk.corpus import words
 # TODO nltk required to .download('words') the first time, so might make sense to keep a local, gitted list of all words
 
 # TODO how about anonymization of dates? right now we are treating-them as regular token, but that might confuse the LLM
 #  a better way is to look at the list of tokens and convert dates to dates from other years
 
-
-
 class Anonymizer:
-    def __init__(self, token_mode="random"):
+    def __init__(self, token_mode="dictionary"):
         self.mapping = {}  # Dictionary from original tokens to sanitized tokens
         self.token_mode = token_mode  # random for random strings, dictionary for dictionary words
         if token_mode == "dictionary":
-            # TODO rename innappropriate words
-            self.word_list = words.words()
+            # TODO remove innappropriate words
+            with open('word_list.json', 'r') as f:
+                self.word_list = json.load(f)
             random.shuffle(self.word_list)
 
     def generate_random_string(self, length=8):
@@ -74,8 +70,8 @@ class Anonymizer:
 def test_quick(query):
     print("Original:")
     print(query)
-    a = Anonymizer(token_mode="dictionary")
     a = Anonymizer(token_mode="random")
+    a = Anonymizer(token_mode="dictionary")
     res1 = a.anonymize(query)
     print("\nAnon:")
     print(res1)
