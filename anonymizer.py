@@ -61,6 +61,7 @@ def convert_SQL(sql_query):
     def replace_non_reserved_words(query):
         # TODO need to consider that sql is NOT case sensitive, and therefore col1 and COL1 are the same thing!!
         tokens = re.split(divider_all, query)
+        tokens = re.findall(r'\b\w+\b', query)
         # TODO compare the performance of using tokens1 and parsing the list vs tokens2
         # tokens1 = re.split(r"(\s+|,|;|\(|\))", query)
         for i, token in enumerate(tokens):
