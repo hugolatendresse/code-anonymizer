@@ -1,4 +1,4 @@
-longquery = """SELECT
+SELECT
     info.EmployeeID,
     info.FirstName,
     info.LastName,
@@ -31,4 +31,3 @@ HAVING
 ORDER BY
     TotalHours DESC, LastName ASC
 LIMIT 10;
-"""
