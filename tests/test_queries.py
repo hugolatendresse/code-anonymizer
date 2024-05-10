@@ -1,19 +1,27 @@
 longquery = """
 
 SELECT
-    info.EmployeeID,
-    COUNT(proj.ProjectID) AS NumberOfProjects,
-    SUM(ts.Hours) AS TotalHours,
+    INFO.EmployeeID,
+    DEPT.DepartmentName,
+    POS.PositionTitle,
+    COUNT(PROJ.ProjectID) AS NumberOfProjecTIMESHEET,
+    SUM(TS.Hours) AS TotalHours
 FROM
-    Employees info
+    Employees AS INFO
 LEFT JOIN
-    Projects proj ON pa.ProjectID = proj.ProjectID
+    ProjectAssignments AS pa ON INFO.EmployeeID = pa.EmployeeID
 LEFT JOIN
-    TimeSheets ts ON proj.ProjectID = ts.ProjectID
+    Projects AS PROJ ON pa.ProjectID = PROJ.ProjectID
+LEFT JOIN
+    TimeSheets AS TS ON PROJ.ProjectID = TS.ProjectID
+LEFT JOIN
+    Departments AS DEPT ON INFO.DepartmentID = DEPT.DepartmentID
+LEFT JOIN
+    Positions AS POS ON INFO.PositionID = POS.PositionID
 WHERE
-    dept.DepartmentName IN ('IT', 'Finance', 'Marketing')
+    DEPT.DepartmentName IN ('IT', 'Finance', 'Marketing')
 GROUP BY
-    info.EmployeeID, dept.DepartmentName, pos.PositionTitle
-LIMIT 10;
+    INFO.EmployeeID, DEPT.DepartmentName, POS.PositionTitle;
+
 
 """
