@@ -1,5 +1,4 @@
-longquery = """
-SELECT
+longquery = """SELECT
     info.EmployeeID,
     info.FirstName,
     info.LastName,
