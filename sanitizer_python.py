@@ -77,6 +77,7 @@ def test_quick(query):
     print("\nRestored:")
     print(unres1)
 
+
 if __name__ == "__main__":
     # test_quick("SELECT EmployeeID, LastName FROM Employees WHERE Department = 'Sales';")
     # Import tests/test_query_long.txt as a string
