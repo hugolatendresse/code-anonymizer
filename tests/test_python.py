@@ -1,9 +1,9 @@
+from sklearn.metrics.pairwise import linear_kernel, cosine_similarity, euclidean_distances
 import numpy as np
 import pandas as pd
 from scipy.spatial.distance import euclidean
 from owapy.tools.time_it import time_it
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel, cosine_similarity, euclidean_distances
 
 from common_paths import join_to_local_dir
 
