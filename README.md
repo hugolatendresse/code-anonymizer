@@ -1,0 +1,1 @@
+This work in this repo is incomplete. The project was moved to https://github.com/hugolatendresse/code-sanitizer-vs-code-extension
