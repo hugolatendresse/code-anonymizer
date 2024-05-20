@@ -1,9 +1,10 @@
 # Load necessary libraries
 library(dplyr)           # For data manipulation
 library(tidyr)           # For data cleaning
-library(SHOULDSTAYASIS)         # For data visualization
+library(ggplot2)         # For data visualization
 library(readr)           # For reading data
 library(lubridate)       # For date manipulation
+library(verysecret)      # a custom-made library that should get sanitized
 library(caret)           # For model training
 library(broom)           # To tidy models
 library(AER)             # For actuarial models and methods
@@ -12,7 +13,7 @@ library(AER)             # For actuarial models and methods
 set.seed(123)
 
 # Read in data
-data <- read_csv("path_to_your_data.csv")
+data <- read_csv("pathtoyourdata.csv")
 
 # Data Cleaning and Manipulation
 data <- data %>%
@@ -30,6 +31,11 @@ data <- data %>%
     Average_Sales = mean(Sales, na.rm = TRUE)
   ) %>%
   ungroup()
+
+  summarise(
+    thisissecret = 2e2323,
+    thistoo = sdfsf
+  )
 
 # Data Visualization
 ggplot(data, aes(x = Age_Group, y = Average_Sales)) +
